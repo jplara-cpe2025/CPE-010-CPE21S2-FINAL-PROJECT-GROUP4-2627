@@ -2,7 +2,7 @@
 
 <img width="947" height="632" alt="1793853363628618514555930516323" src="https://github.com/user-attachments/assets/5deae2af-e923-489a-93f3-be375685cb78" />
 
-## Group 2 Final Project for CPE-010
+## Group 4 Final Project for CPE-010
 
 * Final Project of Group 4 in CPE 010 Data Structures and Algrotihms
 
