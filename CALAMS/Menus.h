@@ -1,7 +1,7 @@
 #ifndef Menus_h
 #define Menus_h
 
-inline void studentMenu(){
+void studentMenu(){
     int choice;
     std::cout << "======== CALAMS ========" << std::endl;
     std::cout << "1. Available Lockers" << std::endl;
@@ -13,7 +13,7 @@ inline void studentMenu(){
     
 }
 
-inline void adminMenu(){
+void adminMenu(){
     int choice;
     std::cout << "======== Admin Menu ========" << std::endl;
     std::cout << "1. Manage Lockers" << std::endl;
