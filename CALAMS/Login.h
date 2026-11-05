@@ -9,7 +9,7 @@ const int size = 100;
 Registration *accounts = new Registration[size];
 int acc_counter = 0;
 
-inline void Register(){
+void Register(){
     std::string user;
     std::string pass;
     bool valid;
@@ -38,7 +38,7 @@ inline void Register(){
     return;
 }
 
-inline bool studentLogin(){
+bool studentLogin(){
     if(acc_counter ==  0){
         std::cout << "No registered accounts yet." << std::endl;
         return false;
@@ -78,7 +78,7 @@ inline bool studentLogin(){
     exit(0);
 }
 
-inline bool adminLogin(){
+bool adminLogin(){
     std::string user;
     std::string pass;
     bool valid;
@@ -110,7 +110,7 @@ inline bool adminLogin(){
     exit(0); 
 }
 
-inline void cleanupAccounts() {
+void cleanupAccounts() {
     delete[] accounts;
     accounts = nullptr;
     acc_counter = 0;
