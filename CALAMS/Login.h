@@ -39,6 +39,10 @@ inline void Register(){
 }
 
 inline bool studentLogin(){
+    if(acc_counter ==  0){
+        std::cout << "No registered accounts yet." << std::endl;
+        return false;
+    }
     std::string user;
     std::string pass;
     Registration *curr_acc = nullptr;
