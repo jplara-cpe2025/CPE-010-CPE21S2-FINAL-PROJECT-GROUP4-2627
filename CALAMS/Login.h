@@ -9,6 +9,11 @@ const int size = 100;
 Registration *accounts = new Registration[size];
 int acc_counter = 0;
 
+// Clear Screen Function
+void clearScreen() {
+    std::cout << "\033[2J\033[3J\033[H" << std::flush;
+}
+
 void Register(){
     std::string user;
     std::string pass;
@@ -20,7 +25,7 @@ void Register(){
         valid = true;
         for(int i = 0; i<acc_counter;i++){
             if(user == accounts[i].getUsername()){
-                system("cls");
+                clearScreen();
                 std::cout << "Username is already taken." << std::endl;
                 valid = false;
                 break;
@@ -32,7 +37,7 @@ void Register(){
     std::cin >> pass;
     accounts[acc_counter] = Registration(user,pass);
     acc_counter++;
-    system("cls");
+    clearScreen();
     std::cout << "Successfully Created Account!" << std::endl;
 
     return;
@@ -91,7 +96,7 @@ bool adminLogin(){
         if(user == "admin"){
             valid = true;
         }else{
-            system("cls");
+            clearScreen();
             std::cout << " Invalid Username." << std::endl;
         }
     }while(!valid);

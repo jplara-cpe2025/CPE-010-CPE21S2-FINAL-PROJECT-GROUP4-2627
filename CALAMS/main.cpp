@@ -27,15 +27,15 @@ int main(){
                 }
                 break;
             case 3:
-                system("cls");
+                clearScreen();
                 Register();
                 break;
             case 4:
-                system("cls");
+                clearScreen();
                 std::cout << "Goodbye!" << std::endl;
                 break;
             default:
-                system("cls");
+                clearScreen();
                 std::cout << "Invalid Choice." << std::endl;
                 break;
         }
