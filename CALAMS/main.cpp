@@ -3,6 +3,7 @@
 #include "Login.h"
 #include "LockerAssetSort.h"
 #include "BorrowReturnHistory.h"
+#include "StudentQueue.h"
 
 const int TOTAL_ITEMS = 6;
 LockerItem campusLockers[TOTAL_ITEMS] = {
@@ -60,6 +61,8 @@ int main(){
     return 0;
 }
 
+StudentQueue studentWaitingQueue;
+
 void studentMenu(){
     int choice;
     do{
@@ -70,7 +73,8 @@ void studentMenu(){
         std::cout << "3. Request a Locker" << std::endl;
         std::cout << "4. Borrow an Asset" << std::endl;
         std::cout << "5. Return an Asset" << std::endl;
-        std::cout << "6. Logout" << std::endl;
+        std::cout << "6. View Waiting Queue" << std::endl;
+        std::cout << "7. Logout" << std::endl;
         std::cin >> choice;;
         std::cout << std::endl;
         switch(choice){
@@ -87,8 +91,8 @@ void studentMenu(){
                 displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 3:
-                std::cout << "[Feature under development: Request Locker]\n";
-                break;
+                studentWaitingQueue.requestLockerFromInput();
+                break; 
             case 4:
                 std::cout << "[Feature under development: Borrow Asset]\n";
                 transactionHistory.recordTransaction(HISTORY_BORROW);
@@ -98,13 +102,16 @@ void studentMenu(){
                 transactionHistory.recordTransaction(HISTORY_RETURN);
                 break;
             case 6:
+                studentWaitingQueue.displayQueue();
+                break;
+            case 7:
                 clearScreen();
                 break;
             default:
                 std::cout << "Invalid Choice." << std::endl;
                 break;
         }
-    }while(choice != 6);
+    }while(choice != 7);
 }
 
 void adminMenu(){
