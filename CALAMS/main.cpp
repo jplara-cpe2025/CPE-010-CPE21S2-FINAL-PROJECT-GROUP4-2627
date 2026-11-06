@@ -1,9 +1,21 @@
 #include <iostream>
 #include "Registration.h"
 #include "Login.h"
+#include "LockerAssetSort.h"
+
+const int TOTAL_ITEMS = 6;
+LockerItem campusLockers[TOTAL_ITEMS] = {
+    {305, "Locker 305 - 3rd Flr", "2514137", false},
+    {101, "Locker 101 - 1st Flr", "Available", true},
+    {502, "Locker 502 - 5th Flr", "2513505", false},
+    {204, "Locker 204 - 2nd Flr", "Available", true},
+    {102, "Locker 102 - 1st Flr", "Available", true},
+    {401, "Locker 401 - 4th Flr", "2513324", false}
+};
 
 void studentMenu();
 void adminMenu();
+
 int main(){
     int choice;
     do{
@@ -57,20 +69,34 @@ void studentMenu(){
         std::cin >> choice;;
         switch(choice){
             case 1:
+                // Calls availability sorting function
+                sortByAvailability(campusLockers, TOTAL_ITEMS);
+                std::cout << "\n--- Lockers Sorted by Availability (Available First) ---";
+                displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 2:
+                // Calls bubble sort / selection sort by ID
+                bubbleSortById(campusLockers, TOTAL_ITEMS);
+                std::cout << "\n--- Lockers Sorted in Ascending Order by ID ---";
+                displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 3:
+                std::cout << "\n[Feature under development: Request Locker]\n";
                 break;
             case 4:
+                std::cout << "\n[Feature under development: Borrow Asset]\n";
                 break;
-            case 5: 
+            case 5:
+                std::cout << "\n[Feature under development: Return Asset]\n";
+                break;
+            case 6:
+                clearScreen();
                 break;
             default:
                 std::cout << "Invalid Choice." << std::endl;
                 break;
         }
-    }while(choice != 5);
+    }while(choice != 6);
 }
 
 void adminMenu(){
@@ -85,18 +111,24 @@ void adminMenu(){
         std::cin >>choice;
         switch(choice){
             case 1:
+                selectionSortById(campusLockers, TOTAL_ITEMS);
+                std::cout << "\n[Admin] All Lockers Sorted Numerically via Selection Sort:";
+                displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 2:
+                sortByAvailability(campusLockers, TOTAL_ITEMS);
+                std::cout << "\n[Admin] Lockers Sorted by Availability Status:";
+                displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 3:
+                std::cout << "\n[Feature under development: Asset Inventory]\n";
                 break;
             case 4:
-                break;
-            case 5: 
+                clearScreen();
                 break;
             default:
                 std::cout << "Invalid Choice." << std::endl;
                 break;
         }
-    }while(choice != 5);
+    }while(choice != 4);
 }
