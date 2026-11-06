@@ -4,6 +4,7 @@
 #include "LockerAssetSort.h"
 #include "BorrowReturnHistory.h"
 #include "StudentQueue.h"
+#include "AssetInventory.h"
 
 const int TOTAL_ITEMS = 6;
 LockerItem campusLockers[TOTAL_ITEMS] = {
@@ -14,6 +15,7 @@ LockerItem campusLockers[TOTAL_ITEMS] = {
     {102, "Locker 102 - 1st Flr", "Available", true},
     {401, "Locker 401 - 4th Flr", "2513324", false}
 };
+AssetInventory inventory;
 
 void studentMenu();
 void adminMenu();
@@ -75,6 +77,7 @@ void studentMenu(){
         std::cout << "5. Return an Asset" << std::endl;
         std::cout << "6. View Waiting Queue" << std::endl;
         std::cout << "7. Logout" << std::endl;
+        std::cout << "Enter your choice: ";
         std::cin >> choice;;
         std::cout << std::endl;
         switch(choice){
@@ -126,6 +129,7 @@ void adminMenu(){
         std::cout << "5. Assign/Release Student Locker (1st in queue)" << std::endl;
         std::cout << "6. View Student Waiting Queue" << std::endl;
         std::cout << "7. Logout" << std::endl;
+        std::cout << "Enter your choice: ";
         std::cin >>choice;
         std::cout << std::endl;
         switch(choice){
@@ -140,7 +144,7 @@ void adminMenu(){
                 displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 3:
-                std::cout << "[Feature under development: Asset Inventory]\n";
+                assetMenu();
                 break;
             case 4:
                 transactionHistory.showMenu();
@@ -159,4 +163,69 @@ void adminMenu(){
                 break;
         }
     }while(choice != 7);
+}
+
+void assetMenu(){
+    int choice;
+    int id;
+    std::string name, status;
+
+    do{
+        std::cout << "======== CALAMS ASSET INVENTORY ========" << std::endl;
+        std::cout << "1. Add Asset" << std::endl;
+        std::cout << "2. Search Asset" << std::endl;
+        std::cout << "3. Display All Assets" << std::endl;
+        std::cout << "4. Update Asset Status" << std::endl;
+        std::cout << "5. Exit" << std::endl;
+        std:: cout << "Enter your choice: ";
+        std:: cin >> choice;
+
+        switch(choice){
+            case 1:
+                std::cout << "===== ADD ASSET ====="<< std::endl;
+                std::cout << "Enter Asset ID: ";
+                std::cin >> id;
+
+               std::cin.ignore();
+
+                std::cout << "Enter Asset Name: ";
+                getline(std::cin, name);
+
+                std::cout << "Enter Status: "<< std::endl;
+                getline(std::cin, status);
+
+                inventory.addAsset(id, name, status);
+                break;
+
+            case 2:
+                std::cout << "Enter Asset ID to search: "<< std::endl;
+                std::cin >> id;
+
+                inventory.searchAsset(id);
+                break;
+
+            case 3:
+                inventory.displayAssets();
+                break;
+
+            case 4:
+                std::cout << "Enter Asset ID: "<< std::endl;
+                std::cin >> id;
+
+                std::cin.ignore();
+
+                std::cout << "Enter New Status: "<< std::endl;
+                getline(std::cin, status);
+
+                inventory.updateStatus(id, status);
+                break;
+
+            case 5:
+                break;
+
+            default:
+                std::cout << "Invalid choice.";
+        }
+
+    } while (choice != 5);
 }
