@@ -30,7 +30,7 @@ class Asset{
         }
 
         void displayAsset() {
-            std::cout << "Asset ID: " << assetID << std::endl;
+            std::cout << "\nAsset ID: " << assetID << std::endl;
             std::cout << "Asset Name: " << name << std::endl;
             std::cout << "Status: " << status << std::endl;
         }
@@ -104,7 +104,7 @@ public:
         std::cout << "\n===== ASSET INVENTORY =====" << std::endl;
         assetBST->inOrder();
 
-        std::cout << "===== ASSET DETAILS =====" << std::endl;
+        std::cout << "\n===== ASSET DETAILS =====" << std::endl;
 
         for(int i = 0; i < assetCount; i++){
             assets[i].displayAsset();
