@@ -19,6 +19,7 @@ AssetInventory inventory;
 
 void studentMenu();
 void adminMenu();
+void assetMenu();
 
 int main(){
     int choice;
