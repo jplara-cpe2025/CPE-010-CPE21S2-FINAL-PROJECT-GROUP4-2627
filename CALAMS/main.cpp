@@ -2,6 +2,7 @@
 #include "Registration.h"
 #include "Login.h"
 #include "LockerAssetSort.h"
+#include "BorrowReturnHistory.h"
 
 const int TOTAL_ITEMS = 6;
 LockerItem campusLockers[TOTAL_ITEMS] = {
@@ -19,13 +20,15 @@ void adminMenu();
 int main(){
     int choice;
     do{
+        std::cout << std::endl;
         std::cout << "======== CALAMS ========" << std::endl;
-        std::cout << "1.Administrator Login" << std::endl;
-        std::cout << "2.Student Login" << std::endl;
-        std::cout << "3.Register" << std::endl;
-        std::cout << "4.Exit" << std::endl;
+        std::cout << "1. Administrator Login" << std::endl;
+        std::cout << "2. Student Login" << std::endl;
+        std::cout << "3. Register" << std::endl;
+        std::cout << "4. Exit" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
+        std::cout << std::endl;
 
         switch(choice){
             case 1:
@@ -60,34 +63,39 @@ int main(){
 void studentMenu(){
     int choice;
     do{
+        std::cout << std::endl;
         std::cout << "======== CALAMS ========" << std::endl;
         std::cout << "1. Available Lockers" << std::endl;
-        std::cout << "2. Request a Locker" << std::endl;
-        std::cout << "3. Borrow an Asset" << std::endl;
-        std::cout << "4. Return an Asset" << std::endl;
-        std::cout << "5. Logout" << std::endl;
+        std::cout << "2. View Lockers by ID" << std::endl;
+        std::cout << "3. Request a Locker" << std::endl;
+        std::cout << "4. Borrow an Asset" << std::endl;
+        std::cout << "5. Return an Asset" << std::endl;
+        std::cout << "6. Logout" << std::endl;
         std::cin >> choice;;
+        std::cout << std::endl;
         switch(choice){
             case 1:
                 // Calls availability sorting function
                 sortByAvailability(campusLockers, TOTAL_ITEMS);
-                std::cout << "\n--- Lockers Sorted by Availability (Available First) ---";
+                std::cout << "--- Lockers Sorted by Availability (Available First) ---";
                 displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 2:
                 // Calls bubble sort / selection sort by ID
                 bubbleSortById(campusLockers, TOTAL_ITEMS);
-                std::cout << "\n--- Lockers Sorted in Ascending Order by ID ---";
+                std::cout << "--- Lockers Sorted in Ascending Order by ID ---";
                 displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 3:
-                std::cout << "\n[Feature under development: Request Locker]\n";
+                std::cout << "[Feature under development: Request Locker]\n";
                 break;
             case 4:
-                std::cout << "\n[Feature under development: Borrow Asset]\n";
+                std::cout << "[Feature under development: Borrow Asset]\n";
+                transactionHistory.recordTransaction(HISTORY_BORROW);
                 break;
             case 5:
-                std::cout << "\n[Feature under development: Return Asset]\n";
+                std::cout << "[Feature under development: Return Asset]\n";
+                transactionHistory.recordTransaction(HISTORY_RETURN);
                 break;
             case 6:
                 clearScreen();
@@ -102,33 +110,38 @@ void studentMenu(){
 void adminMenu(){
     int choice;
     do{
+        std::cout << std::endl;
         std::cout << "======== Admin Menu ========" << std::endl;
         std::cout << "1. Manage Lockers" << std::endl;
         std::cout << "2. Manage Campus Assets" << std::endl;
-        std::cout << "3. " << std::endl;
-        std::cout << "4. " << std::endl;
+        std::cout << "3. Asset Inventory" << std::endl;
+        std::cout << "4. Transaction History" << std::endl;
         std::cout << "5. Logout" << std::endl;
         std::cin >>choice;
+        std::cout << std::endl;
         switch(choice){
             case 1:
                 selectionSortById(campusLockers, TOTAL_ITEMS);
-                std::cout << "\n[Admin] All Lockers Sorted Numerically via Selection Sort:";
+                std::cout << "[Admin] All Lockers Sorted Numerically via Selection Sort:";
                 displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 2:
                 sortByAvailability(campusLockers, TOTAL_ITEMS);
-                std::cout << "\n[Admin] Lockers Sorted by Availability Status:";
+                std::cout << "[Admin] Lockers Sorted by Availability Status:";
                 displayLockerItems(campusLockers, TOTAL_ITEMS);
                 break;
             case 3:
-                std::cout << "\n[Feature under development: Asset Inventory]\n";
+                std::cout << "[Feature under development: Asset Inventory]\n";
                 break;
             case 4:
+                transactionHistory.showMenu();
+                break;
+            case 5:
                 clearScreen();
                 break;
             default:
                 std::cout << "Invalid Choice." << std::endl;
                 break;
         }
-    }while(choice != 4);
+    }while(choice != 5);
 }
