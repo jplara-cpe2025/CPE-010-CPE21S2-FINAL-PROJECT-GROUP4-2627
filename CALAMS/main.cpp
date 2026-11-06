@@ -172,7 +172,7 @@ void assetMenu(){
     std::string name, status;
 
     do{
-        std::cout << "======== CALAMS ASSET INVENTORY ========" << std::endl;
+        std::cout << "\n======== CALAMS ASSET INVENTORY ========" << std::endl;
         std::cout << "1. Add Asset" << std::endl;
         std::cout << "2. Search Asset" << std::endl;
         std::cout << "3. Display All Assets" << std::endl;
@@ -183,8 +183,8 @@ void assetMenu(){
 
         switch(choice){
             case 1:
-                std::cout << "===== ADD ASSET ====="<< std::endl;
-                std::cout << "Enter Asset ID: ";
+                std::cout << "\n===== ADD ASSET =====";
+                std::cout << "\nEnter Asset ID: ";
                 std::cin >> id;
 
                std::cin.ignore();
@@ -192,14 +192,15 @@ void assetMenu(){
                 std::cout << "Enter Asset Name: ";
                 getline(std::cin, name);
 
-                std::cout << "Enter Status: "<< std::endl;
+                std::cout << "Enter Status: ";
                 getline(std::cin, status);
+                std::cout << std::endl;
 
                 inventory.addAsset(id, name, status);
                 break;
 
             case 2:
-                std::cout << "Enter Asset ID to search: "<< std::endl;
+                std::cout << "Enter Asset ID to search: ";
                 std::cin >> id;
 
                 inventory.searchAsset(id);
@@ -210,7 +211,7 @@ void assetMenu(){
                 break;
 
             case 4:
-                std::cout << "Enter Asset ID: "<< std::endl;
+                std::cout << "Enter Asset ID: ";
                 std::cin >> id;
 
                 std::cin.ignore();
