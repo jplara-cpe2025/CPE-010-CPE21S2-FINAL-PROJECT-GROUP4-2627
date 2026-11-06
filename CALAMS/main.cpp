@@ -98,11 +98,9 @@ void studentMenu(){
                 studentWaitingQueue.requestLockerFromInput();
                 break; 
             case 4:
-                std::cout << "[Feature under development: Borrow Asset]\n";
                 transactionHistory.recordTransaction(HISTORY_BORROW);
                 break;
             case 5:
-                std::cout << "[Feature under development: Return Asset]\n";
                 transactionHistory.recordTransaction(HISTORY_RETURN);
                 break;
             case 6:
