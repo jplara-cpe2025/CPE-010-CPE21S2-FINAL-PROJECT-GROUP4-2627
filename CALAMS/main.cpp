@@ -22,7 +22,7 @@ int main(){
     int choice;
     do{
         std::cout << std::endl;
-        std::cout << "======== CALAMS ========" << std::endl;
+        std::cout << "======== CALAMS LOGIN MENU ========" << std::endl;
         std::cout << "1. Administrator Login" << std::endl;
         std::cout << "2. Student Login" << std::endl;
         std::cout << "3. Register" << std::endl;
@@ -67,7 +67,7 @@ void studentMenu(){
     int choice;
     do{
         std::cout << std::endl;
-        std::cout << "======== CALAMS ========" << std::endl;
+        std::cout << "======== CALAMS STUDENT MENU ========" << std::endl;
         std::cout << "1. Available Lockers" << std::endl;
         std::cout << "2. View Lockers by ID" << std::endl;
         std::cout << "3. Request a Locker" << std::endl;
@@ -118,12 +118,14 @@ void adminMenu(){
     int choice;
     do{
         std::cout << std::endl;
-        std::cout << "======== Admin Menu ========" << std::endl;
+        std::cout << "======== CALAMS ADMIN MENU ========" << std::endl;
         std::cout << "1. Manage Lockers" << std::endl;
         std::cout << "2. Manage Campus Assets" << std::endl;
         std::cout << "3. Asset Inventory" << std::endl;
         std::cout << "4. Transaction History" << std::endl;
-        std::cout << "5. Logout" << std::endl;
+        std::cout << "5. Assign/Release Student Locker (1st in queue)" << std::endl;
+        std::cout << "6. View Student Waiting Queue" << std::endl;
+        std::cout << "7. Logout" << std::endl;
         std::cin >>choice;
         std::cout << std::endl;
         switch(choice){
@@ -144,11 +146,17 @@ void adminMenu(){
                 transactionHistory.showMenu();
                 break;
             case 5:
+                studentWaitingQueue.processFrontQueue(campusLockers, TOTAL_ITEMS);
+                break;
+            case 6:
+                studentWaitingQueue.displayQueue();
+                break;
+            case 7:
                 clearScreen();
                 break;
             default:
                 std::cout << "Invalid Choice." << std::endl;
                 break;
         }
-    }while(choice != 5);
+    }while(choice != 7);
 }

@@ -7,6 +7,7 @@
 struct StudentRequest{
     std::string studentName;
     std::string studentID;
+    int targetLockerID;
     std::string requestType;
     StudentRequest* next;
 };
@@ -30,8 +31,8 @@ public:
             return front == nullptr;
     }
 
-    void enqueue(std::string name, std::string id, std::string request){
-        StudentRequest* newNode = new StudentRequest{name, id, request, nullptr};
+    void enqueue(std::string name, std::string id, int lockerID, std::string request){
+        StudentRequest* newNode = new StudentRequest{name, id, lockerID, request, nullptr};
         if (isEmpty()){
             front = rear = newNode;
         } else {
@@ -39,9 +40,9 @@ public:
             rear = newNode;
         }
         count++;
-        std::cout << "\n" << name << " (ID: " << id << ") added to the waiting queue.\n";
+        std::cout << "\n" << name << " (ID: " << id << ") added to the waiting queue for Locker #" << lockerID << ".\n";
     }
-
+    
     void dequeue(){
         if (isEmpty()){
             std::cout << "No pending requests in the queue.\n";
@@ -61,14 +62,52 @@ public:
     // Input and Enqueue
     void requestLockerFromInput(){
         std::string name, id;
-        std::cout << "\n=== Request a Locker ===\n";
+        int lockerID;
+        std::cout << "\n=== Request / Release a Locker ===\n";
         std::cout << "Enter Student Name: ";
         std::cin.ignore();
         std::getline(std::cin, name);
         std::cout << "Enter Student ID: ";
         std::cin >> id;
+        std::cout << "Enter Target Locker ID: ";
+        std::cin >> lockerID;
 
-        enqueue(name, id, "Locker Request");
+        enqueue(name, id, lockerID, "Locker Request");
+    }
+
+    void processFrontQueue(LockerItem lockers[], int totalLockers) {
+        if (isEmpty()) {
+            std::cout << "No pending requests in the queue.\n";
+            return;
+        }
+
+        StudentRequest* req = front;
+
+        for (int i = 0; i < totalLockers; ++i) {
+            if (lockers[i].id == req->targetLockerID) {
+                // If owned by this student
+                if (lockers[i].assignedTo == req->studentID) {
+                    lockers[i].isAvailable = true;
+                    lockers[i].assignedTo = "Available";
+                    std::cout << "\n Locker #" << req->targetLockerID << " is now released.\n";
+                } 
+                // If available 
+                else if (lockers[i].isAvailable) {
+                    lockers[i].isAvailable = false;
+                    lockers[i].assignedTo = req->studentID;
+                    std::cout << "\nLocker #" << req->targetLockerID << " assigned to " << req->studentName << ".\n";
+                } 
+                else {
+                    std::cout << "\nLocker #" << req->targetLockerID << " is occupied by someone else.\n";
+                }
+
+                dequeue();
+                return;
+            }
+        }
+        // if not found
+        std::cout << "\nLocker ID #" << req->targetLockerID << " not found.\n";
+        dequeue();
     }
 
     void displayQueue() const {
@@ -81,7 +120,7 @@ public:
         int pos = 1;
         std::cout << "\n--- Locker Request Waiting Line (" << count << " Waiting) ---\n";
         while (current != nullptr){
-            std::cout << pos << ". " << current->studentName << " | ID: " << current->studentID << "\n";
+            std::cout << pos << ". " << current->studentName << " | ID: " << current->studentID  << " | Locker #" << current->targetLockerID << "\n";
             current = current->next;
             pos++;
         }
